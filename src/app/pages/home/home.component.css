@@ -1,0 +1,10 @@
+#search-bar {
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-form-field {
+    width: 40vh;
+}

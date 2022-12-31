@@ -1,7 +1,14 @@
-<nav>
-    <ul>
-        <li><a routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a></li>
-        <li><a routerLink="/items" routerLinkActive="active" ariaCurrentWhenActive="page">Items</a></li>
-    </ul>
-</nav>
+<mat-toolbar color="primary">
+    <a mat-button routerLink="/home" class="home">
+        <mat-icon headline-1>home</mat-icon>
+        <div headline>Home</div>
+    </a>
+    <span class="spacer"></span>
+    <a mat-button aria-label="Sign up" mat.headline-1>Sign up</a>
+    <div>
+        <button mat-icon-button>
+            <mat-icon aria-label="Sign in">login</mat-icon> 
+        </button>
+    </div>
+</mat-toolbar>
 <router-outlet></router-outlet>
