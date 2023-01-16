@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Category } from 'src/app/shared/category.module';
 import { CONST } from 'src/app/shared/constants';
 
 @Component({
