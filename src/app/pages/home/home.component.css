@@ -8,3 +8,11 @@
 mat-form-field {
     width: 40vh;
 }
+
+#categories {
+    height: 50vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}

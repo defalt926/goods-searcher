@@ -10,3 +10,10 @@
     </div>
   </mat-form-field>
 </div>
+<div id="categories">
+  <div *ngFor="let category of categories">
+    <a mat-button mat-card style="background-image: url(); width: 200px; height: 200px; margin: 10px; box-shadow: 0px 3px 20px rgb(141, 141, 141); ">
+      {{category.name}}
+    </a>
+  </div>
+</div>

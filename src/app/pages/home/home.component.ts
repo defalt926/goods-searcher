@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Category } from 'src/app/shared/category.module';
+import { CONST } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
+  categories = CONST.categories;
 }

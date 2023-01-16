@@ -7,7 +7,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
-
 @NgModule({
   declarations: [
     HomeComponent
@@ -24,4 +23,6 @@ import { MatButtonModule } from '@angular/material/button';
     HomeComponent
   ]
 })
-export class HomeModule { }
+export class HomeModule { 
+
+}
