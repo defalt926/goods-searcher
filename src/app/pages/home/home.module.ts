@@ -22,7 +22,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     MatButtonModule
   ],
   exports: [
-    HomeComponent
+    
   ]
 })
 export class HomeModule { 

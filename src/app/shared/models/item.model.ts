@@ -1,8 +1,8 @@
 export interface Item {
-    category: string;
-    details: string;
     id: string;
+    cat_id: string;
+    subcat_id: string;
+    details: string;
     name: string;
-    price: string;
     rating: number;
 }

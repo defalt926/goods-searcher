@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable, ObservableInput } from 'rxjs';
-import { switchMap } from 'rxjs/operators'
-import { CategoryService } from 'src/app/services/category.service';
-import { CONST } from 'src/app/shared/constants';
-import { Category } from 'src/app/shared/models/category.model';
+import { SubCategory } from 'src/app/shared/models/subcategory.model';
+import { CategoriesService } from 'src/app/services/categories.service';
 
 @Component({
   selector: 'app-categories',
@@ -12,17 +9,16 @@ import { Category } from 'src/app/shared/models/category.model';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent {
-  categories$: ObservableInput<any> | undefined;
-  
+  subCategories: SubCategory[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: CategoryService
+    private service: CategoriesService
   ) {}
 
   ngOnInit() {
-    console.log(this.service.getSubCategory(this.route.snapshot.paramMap.get('id')))
-    
-    console.log(this.categories$)   
+    this.subCategories = this.service.getSubCategories(this.route.snapshot.paramMap.get('id'))
+    console.log(this.subCategories)
   }
 }

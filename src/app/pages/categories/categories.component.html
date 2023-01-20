@@ -1,1 +1,20 @@
-<p>categories works!</p>
+<div id="search-bar">
+    <mat-form-field>
+        <mat-label color="blue">Search</mat-label>
+        <input type="search" matInput placeholder="Start typing...">
+        <!--<mat-icon matSuffix>search</mat-icon>-->
+        <div id="button-div" matSuffix>
+            <button mat-icon-button>
+                <mat-icon aria-label="Search icon">search</mat-icon>
+            </button>
+        </div>
+    </mat-form-field>
+</div>
+<div id="subCategories">
+    <div *ngFor="let subCategory of subCategories">
+        <a mat-button mat-card [routerLink]="['/items', subCategory.subcat_id]" style="background-image: url(); width: 200px; height: 200px; margin: 10px; box-shadow: 0px 3px 20px rgb(141, 141, 141); ">
+            {{subCategory.name}}
+        </a>
+    </div>
+</div>
+  
