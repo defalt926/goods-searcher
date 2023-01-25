@@ -4,7 +4,7 @@
         <input type="search" matInput placeholder="Start typing...">
         <!--<mat-icon matSuffix>search</mat-icon>-->
         <div id="button-div" matSuffix>
-            <button mat-icon-button>
+            <button mat-icon-button [routerLink]="['/items', 0, searchInput]">
                 <mat-icon aria-label="Search icon">search</mat-icon>
             </button>
         </div>

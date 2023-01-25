@@ -9,4 +9,5 @@ import { Category } from 'src/app/shared/models/category.model';
 })
 export class HomeComponent {
   categories: Category[] = CONST.categories;
+  searchInput = "";
 }

@@ -9,6 +9,6 @@ export class CategoriesService {
   constructor() { }
 
   getSubCategories(id: string | null) {
-    return CONST.subCategories.filter(category => category.cat_id == id)
+    return CONST.subCategories.filter(category => category.cat_id == id);
   }
 }

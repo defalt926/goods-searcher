@@ -10,6 +10,7 @@ import { CategoriesService } from 'src/app/services/categories.service';
 })
 export class CategoriesComponent {
   subCategories: SubCategory[] = [];
+  searchInput = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -18,7 +19,6 @@ export class CategoriesComponent {
   ) {}
 
   ngOnInit() {
-    this.subCategories = this.service.getSubCategories(this.route.snapshot.paramMap.get('id'))
-    console.log(this.subCategories)
+    this.subCategories = this.service.getSubCategories(this.route.snapshot.paramMap.get('id'));
   }
 }

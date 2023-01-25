@@ -1,0 +1,12 @@
+.card-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px;
+}
+
+mat-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}

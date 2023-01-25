@@ -10,6 +10,7 @@ import { Item } from 'src/app/shared/models/item.model';
 })
 export class ItemsComponent {
   items: Item[] = [];
+  searchInput = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -17,8 +18,15 @@ export class ItemsComponent {
     private service: ItemsService
   ) {}
 
-   ngOnInit() {
-    this.items = this.service.getItems(this.route.snapshot.paramMap.get('id'))
-    console.log(this.items)
+  ngOnInit() {
+    if(this.route.snapshot.paramMap.get('id') == "0") {
+      this.items = this.service.getItemsByName(this.route.snapshot.paramMap.get('name'));
+    } else {
+      this.items = this.service.getItemsById(this.route.snapshot.paramMap.get('id'));
+    }
+  }
+
+  public getPrice(item_id: string): number {
+    return this.service.getLowestPriceByItem(item_id);
   }
 }

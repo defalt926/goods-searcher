@@ -1,0 +1,56 @@
+#items {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#items-container {
+    width: 70%;
+}
+
+#item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.itemBoxes {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+#itemPicture {
+    flex: 2;
+}
+
+#itemName {
+    flex: 3;
+}
+
+#itemPrice {
+    flex: 1;
+}
+
+#tabs {
+    display: flex;
+    align-items: center;
+}
+
+#tabs-container {
+    width: 200px;
+}
+
+/*:host ::ng-deep .mat-mdc-tab-body-wrapper {
+    height: 400px;
+    width: 80%;
+    background-color: aqua;
+}*/
+
+mat-divider {
+    margin: 30px;
+}
