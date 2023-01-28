@@ -11,18 +11,18 @@
 </div>
 <mat-tab-group mat-stretch-tabs id="tabs">
     <div class="tabs-container">
-        <mat-tab class="tab" label="Shops">
+        <mat-tab class="tab" label="Boltok">
             <div *ngFor="let price of prices">
                 <a [routerLink]="['/shop', price.shop_id]">{{getShopNameById(price.shop_id)}}</a>
                 {{price.price}} 
-                HUF
+                Ft
                 <mat-divider></mat-divider>
             </div>
         </mat-tab>
-        <mat-tab class="tab" label="Description">
+        <mat-tab class="tab" label="Leírás">
             {{getDescriptionByItemId(item.id)}}
         </mat-tab>
-        <mat-tab class="tab" label="Opinions">
+        <mat-tab class="tab" label="Vélemények">
             Rating: {{getRatingByItemId(item.id)}}
         </mat-tab>
     </div>
