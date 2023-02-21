@@ -29,8 +29,8 @@ export const CONST = {
         {id: "5", cat_id: "1", subcat_id: "1", name: "Csokis Fánk", description: "csokis fánk 1db", rating: 0} as Item,
     ],
     shops: [
-        {id: "1", name: "Spar", city: "Szeged", street: "Csanádi street 7"} as Shop,
-        {id: "2", name: "Aldi", city: "Szeged", street: "Dugonics square 8"} as Shop,
+        {id: "1", name: "Spar", city: "Szeged", street: "Csanádi utca 7"} as Shop,
+        {id: "2", name: "Aldi", city: "Szeged", street: "Dugonics tér 8"} as Shop,
         {id: "3", name: "Tesco", city: "Budapest", street: "Teréz krt. 55-57"} as Shop,
     ],
     prices: [
