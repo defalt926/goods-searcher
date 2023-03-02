@@ -3,6 +3,7 @@ import { Item } from "./models/item.model"
 import { Price } from "./models/price.model"
 import { Shop } from "./models/shop.model"
 import { SubCategory } from "./models/subcategory.model"
+import { User } from "./models/user.model"
 
 export const CONST = {
     categories: [
@@ -46,4 +47,7 @@ export const CONST = {
         {shop_id: "2", item_id: "5", price: 230} as Price,
         {shop_id: "3", item_id: "1", price: 200} as Price,
     ],
+    users: [
+        {id: '0', first_name: 'Tamás', last_name: 'Kiss', email: 'kisst186@gmail.com', password: 'Test1234'} as User,
+    ]
 }

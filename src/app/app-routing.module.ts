@@ -10,6 +10,8 @@ import { ItemModule } from './pages/item/item.module';
 import { ItemComponent } from './pages/item/item.component';
 import { ShopsModule } from './pages/shops/shops.module';
 import { ShopsComponent } from './pages/shops/shops.component';
+import { RegistModule } from './pages/regist/regist.module';
+import { RegistComponent } from './pages/regist/regist.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -19,6 +21,7 @@ const routes: Routes = [
   { path: 'categories/:id', component: CategoriesComponent },
   { path: 'item/:item_id', component: ItemComponent },
   { path: 'shop/:shop_id', component: ShopsComponent },
+  { path: 'regist', component: RegistComponent },
   { path: '**', redirectTo: 'home' },
 ];
 
