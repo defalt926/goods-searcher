@@ -4,11 +4,13 @@
         <div headline>Főoldal</div>
     </a>
     <span class="spacer"></span>
-    <a mat-button routerLink="/regist" aria-label="Sign up" mat.headline-1>Regisztráció</a>
-    <div>
-        <button mat-icon-button>
-            <mat-icon aria-label="Sign in">login</mat-icon> 
-        </button>
-    </div>
+    <a mat-button routerLink="/regist" aria-label="Sign up" mat.headline-1>
+        <mat-icon>person_add</mat-icon>
+        <div>Regisztráció</div>
+    </a>
+    <a mat-button routerLink="/login" aria-label="Sign in">
+        <mat-icon>person</mat-icon> 
+        <div>Bejelentkezés</div>
+    </a>
 </mat-toolbar>
 <router-outlet></router-outlet>

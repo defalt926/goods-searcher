@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms'
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms'
 import { CONST } from 'src/app/shared/constants';
 import { User } from "src/app/shared/models/user.model"
 
@@ -9,16 +9,20 @@ import { User } from "src/app/shared/models/user.model"
   styleUrls: ['./regist.component.css']
 })
 export class RegistComponent {
-  userRegistForm = new FormGroup({
-    firstName: new FormControl('asd', Validators.required),
-    lastName: new FormControl('asd', Validators.required),
-    email: new FormControl('asd@asd.asd', [Validators.required, Validators.email]),
-    password: new FormControl('asd', Validators.required),
-    password2: new FormControl('asd', Validators.required),
-  }, {validators: this.checkPasswords});
+  form: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      firstName: ['Tamás', Validators.required],
+      lastName: ['Kiss', Validators.required],
+      email: ['asd@asd.asd', [Validators.required, Validators.email]],
+      password: ['asd', Validators.required],
+      password2: ['asd', Validators.required],
+    }, {validators: this.checkPasswords});
+  }
   
-  onSubmit() {
-    let form = this.userRegistForm
+  regist() {
+    let form = this.form
 
     if (form.valid) {
       if (CONST.users.every(user => user.email !== form.value['email'])) {
@@ -30,7 +34,6 @@ export class RegistComponent {
           password: form.value['password'] ? form.value['password'] : ''} as User)
       }
     }
-
     console.log(CONST.users)
   }
 
