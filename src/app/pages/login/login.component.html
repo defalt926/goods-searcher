@@ -1,0 +1,26 @@
+<div>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Bejelentkezés</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="form" (ngSubmit)="login()">
+                <mat-form-field>
+                    <mat-label>E-mail cím</mat-label>
+                    <input formControlName="email" type="email" matInput placeholder="E-mail...">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Jelszó</mat-label>
+                    <input #psw formControlName="password" type="password" matInput placeholder="Jelszó...">
+                    <button (click)="setVisibility(psw.type=='password')"  type="button" mat-button matSuffix>
+                        <div #text>Show</div>
+                        <mat-icon aria-label="Search icon" >
+                            <div #icon color="accent">visibility</div>
+                        </mat-icon>
+                    </button>
+                </mat-form-field>
+                <button type="submit" mat-raised-button color="primary">Bejelentkezés</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
