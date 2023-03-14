@@ -28,7 +28,6 @@ export class ItemComponent {
   }
 
   public getShopNameById(shop_id: string): string {
-    console.log(this.service.getShopNameById(shop_id));
     return this.service.getShopNameById(shop_id);
   }
 

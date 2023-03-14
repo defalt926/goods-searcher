@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './services/auth.guard';
 import { HomeModule } from './pages/home/home.module';
 import { HomeComponent } from './pages/home/home.component';
 import { CategoriesModule } from './pages/categories/categories.module';
@@ -20,7 +21,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'items/:id', component: ItemsComponent },
   { path: 'items/:id/:name', component: ItemsComponent },
-  { path: 'categories/:id', component: CategoriesComponent },
+  { path: 'categories/:id', component: CategoriesComponent, canActivate: [AuthGuard] },
   { path: 'item/:item_id', component: ItemComponent },
   { path: 'shop/:shop_id', component: ShopsComponent },
   { path: 'regist', component: RegistComponent },

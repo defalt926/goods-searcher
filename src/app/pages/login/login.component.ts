@@ -1,5 +1,6 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent {
 
   constructor(private fb: FormBuilder, 
               private renderer: Renderer2,
-              ) {
+              private authService: AuthService) {
     this.form = this.fb.group({
       email: ['kisst186@gmail.com', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -22,7 +23,9 @@ export class LoginComponent {
   }
 
   login() {
-    console.log("login")
+    if(!this.form.invalid) {
+      this.authService.login(this.form.value['email'], this.form.value['password'])
+    }
   }
 
   setVisibility(isVisible: boolean) {
