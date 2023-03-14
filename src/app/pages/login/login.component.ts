@@ -1,5 +1,6 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -12,10 +13,12 @@ export class LoginComponent {
   @ViewChild('psw') pswRef!: ElementRef;
   @ViewChild('text') textRef!: ElementRef;
   @ViewChild('icon') iconRef!: ElementRef;
+  @ViewChild('message') msgRef!: ElementRef;
 
   constructor(private fb: FormBuilder, 
               private renderer: Renderer2,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private snackBar: MatSnackBar) {
     this.form = this.fb.group({
       email: ['kisst186@gmail.com', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -23,8 +26,14 @@ export class LoginComponent {
   }
 
   login() {
-    if(!this.form.invalid) {
-      this.authService.login(this.form.value['email'], this.form.value['password'])
+    if (!this.form.invalid) {
+      var isLoggedIn = this.authService.login(this.form.value['email'], this.form.value['password'])
+
+      if (!isLoggedIn) {
+        this.snackBar.open('Email or password you entered is incorrect.', 'OK', {
+          duration: 5000
+        })
+      }
     }
   }
 

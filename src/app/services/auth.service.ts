@@ -14,10 +14,13 @@ export class AuthService {
 
     login(email: string, password: string) {
       var user = CONST.users.find(user => user.email === email && user.password === password)
-        if (user) {
-          this.user = user; 
-          this.router.navigateByUrl('home');
-        }
+      if (user) {
+        this.user = user; 
+        this.router.navigateByUrl('home');
+        return true;
+      } else {
+        return false;
+      }
     }
 
     getAuthStatus() {
