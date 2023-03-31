@@ -1,0 +1,23 @@
+<form [formGroup]="form" (ngSubmit)="addShop()">
+  <h2 mat-dialog-title>Bolt hozzáadása</h2>
+  <div class="dialog-content">
+    <mat-dialog-content class="mat-typography">
+      <mat-form-field>
+        <mat-label>Név</mat-label>
+        <input formControlName="name" type="text" matInput placeholder="Név...">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Város</mat-label>
+        <input formControlName="city" type="text" matInput placeholder="Város...">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Utca</mat-label>
+        <input formControlName="street" type="text" matInput placeholder="Utca...">
+      </mat-form-field>
+    </mat-dialog-content>
+  </div>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Vissza</button>
+    <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true">Hozzáadás</button>
+  </mat-dialog-actions>
+</form>
