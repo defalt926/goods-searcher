@@ -1,7 +1,5 @@
-.card-container {
-    display: flex;
-    justify-content: center;
-    margin: 40px;
+.container {
+    margin: 20px 10px 0 10px;
 }
 
 mat-card {
@@ -9,4 +7,20 @@ mat-card {
     justify-content: center;
     align-items: center;
     padding: 20px;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+    background-color: #e0e0e0;
+}
+
+.add-shop-button {
+    position: fixed;
+    right: 40px;
+    top: 85%;
 }
