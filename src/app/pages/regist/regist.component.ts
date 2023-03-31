@@ -31,7 +31,8 @@ export class RegistComponent {
           first_name: form.value['firstName'] ? form.value['firstName'] : '',
           last_name: form.value['lastName'] ? form.value['lastName'] : '',
           email: form.value['email'] ? form.value['email'] : '',
-          password: form.value['password'] ? form.value['password'] : ''} as User)
+          password: form.value['password'] ? form.value['password'] : '',
+          is_suspended: false} as User)
       }
     }
     console.log(CONST.users)
