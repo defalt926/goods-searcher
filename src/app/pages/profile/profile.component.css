@@ -1,0 +1,17 @@
+#card-container {
+    display: flex;
+    justify-content: center;
+}
+
+mat-card {  
+    width: 60%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 10px;
+}
+
+mat-card div {
+    display: flex;
+    justify-content: center;
+    width: 300px;
+}
