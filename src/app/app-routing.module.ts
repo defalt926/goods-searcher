@@ -18,8 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'categories/:id',
-    loadChildren: () => import('./pages/categories/categories.module').then(m => m.CategoriesModule),
-    //canActivate: [AuthGuard]
+    loadChildren: () => import('./pages/categories/categories.module').then(m => m.CategoriesModule)
   },
   {
     path: 'item/:item_id',
@@ -27,6 +26,10 @@ const routes: Routes = [
   },
   {
     path: 'shop/:shop_id',
+    loadChildren: () => import('./pages/shop/shop.module').then(m => m.ShopModule)
+  },
+  {
+    path: 'shops',
     loadChildren: () => import('./pages/shops/shops.module').then(m => m.ShopsModule)
   },
   {
@@ -36,6 +39,11 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule),
+    canActivate: [AuthGuard]
   },
   { path: '**', redirectTo: 'home' },
 ];
