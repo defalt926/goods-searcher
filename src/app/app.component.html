@@ -3,12 +3,24 @@
         <mat-icon headline-1>home</mat-icon>
         <div headline>Főoldal</div>
     </a>
+    <a mat-button routerLink="/shops" class="home">
+        <mat-icon headline-1>store</mat-icon>
+        <div headline>Boltok</div>
+    </a>
     <span class="spacer"></span>
     <a mat-button routerLink="/regist" aria-label="Sign up" mat.headline-1>
         <mat-icon>person_add</mat-icon>
         <div>Regisztráció</div>
     </a>
-    <a mat-button routerLink="/login" aria-label="Sign in">
+    <button *ngIf="authService.getAuthStatus()" mat-button [matMenuTriggerFor]="aboveMenu">
+        <mat-icon>person</mat-icon> 
+        <div>Profil</div>
+    </button>
+    <mat-menu #aboveMenu="matMenu">
+    <a mat-menu-item routerLink="/profile">Profil adatai</a>
+    <button mat-menu-item (click)="authService.logout()">Kijelentkezés</button>
+    </mat-menu>
+    <a *ngIf="!authService.getAuthStatus()" mat-button routerLink="/login" aria-label="Sign in">
         <mat-icon>person</mat-icon> 
         <div>Bejelentkezés</div>
     </a>
