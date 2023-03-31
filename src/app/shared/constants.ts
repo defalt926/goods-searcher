@@ -17,7 +17,7 @@ export const CONST = {
         {cat_id: "1", subcat_id: "2", name: "Víz"} as SubCategory,
         {cat_id: "2", subcat_id: "3", name: "Mobiltelefon"} as SubCategory,
         {cat_id: "2", subcat_id: "4", name: "Televízió"} as SubCategory,
-        {cat_id: "3", subcat_id: "5", name: "Törülköző"} as SubCategory,
+        {cat_id: "3", subcat_id: "5", name: "Törölköző"} as SubCategory,
         {cat_id: "3", subcat_id: "6", name: "Növény"} as SubCategory,
         {cat_id: "4", subcat_id: "7", name: "Kerékpár"} as SubCategory,
         {cat_id: "4", subcat_id: "8", name: "Horgászbot"} as SubCategory,
@@ -48,6 +48,6 @@ export const CONST = {
         {shop_id: "3", item_id: "1", price: 200} as Price,
     ],
     users: [
-        {id: '0', first_name: 'Tamás', last_name: 'Kiss', email: 'kisst186@gmail.com', password: 'Test1234'} as User,
+        {id: '0', first_name: 'Tamás', last_name: 'Kiss', email: 'kisst186@gmail.com', password: 'Test1234', is_suspended: false} as User,
     ]
 }
