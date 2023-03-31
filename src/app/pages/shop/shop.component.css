@@ -1,0 +1,26 @@
+.table-container {
+    margin: 20px 10px 100px 10px;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px;
+}
+
+mat-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+    background-color: #e0e0e0;
+}
