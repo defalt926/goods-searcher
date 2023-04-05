@@ -44,7 +44,6 @@ export const CONST = {
         {shop_id: "2", item_id: "3", price: 70} as Price,
         {shop_id: "2", item_id: "4", price: 140} as Price,
         {shop_id: "1", item_id: "5", price: 250} as Price,
-        {shop_id: "2", item_id: "5", price: 230} as Price,
         {shop_id: "3", item_id: "1", price: 200} as Price,
     ],
     users: [

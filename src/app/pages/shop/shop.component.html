@@ -49,3 +49,6 @@
       *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
+<button class="add-item-button" (click)="openDialog()" *ngIf="authService.getAuthStatus()" color="warn" mat-fab aria-label="Add item">
+  <mat-icon>add</mat-icon>
+</button>

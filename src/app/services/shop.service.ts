@@ -16,4 +16,17 @@ export class ShopService {
   getItemPriceByIds(shop_id: string, item_id: string): number {
     return CONST.prices.filter(item => item.shop_id == shop_id && item.item_id == item_id)[0].price;
   }
+
+  isItemExistInItems(itemName: string) {
+    return CONST.items.some(item => item.name == itemName);
+  }
+
+  isItemExistInShop(shopId: string, itemName: string) {
+    return CONST.prices.some(price => price.shop_id == shopId
+      && price.item_id == this.getItemIdByItemName(itemName));
+  }
+
+  getItemIdByItemName(itemName: string) {
+    return CONST.items.find(item => item.name == itemName)?.id;
+  }
 }

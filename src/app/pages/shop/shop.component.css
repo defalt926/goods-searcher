@@ -24,3 +24,9 @@ mat-card {
 .mat-mdc-row:hover .mat-mdc-cell {
     background-color: #e0e0e0;
 }
+
+.add-item-button {
+    position: fixed;
+    right: 40px;
+    top: 85%;
+}

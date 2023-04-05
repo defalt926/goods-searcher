@@ -1,0 +1,40 @@
+<form [formGroup]="form" (ngSubmit)="addItem()">
+  <h2 mat-dialog-title>Termék hozzáadása</h2>
+  <div class="dialog-content">
+    <mat-dialog-content class="mat-typography">
+      <mat-form-field>
+        <mat-label>Kategória</mat-label>
+        <mat-select (selectionChange)="selectCategory($event)" formControlName="category">
+          <mat-option *ngFor="let category of categories" [value]="category.cat_id">
+            {{category.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Alkategória</mat-label>
+        <mat-select formControlName="subCategory">
+          <mat-option *ngFor="let subCategory of subCategories" [value]="subCategory.subcat_id">
+            {{subCategory.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Név</mat-label>
+        <input formControlName="name" type="text" matInput placeholder="Név...">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Leírás</mat-label>
+        <input formControlName="description" type="text" matInput placeholder="Leírás...">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Ár</mat-label>
+        <input formControlName="price" type="number" matInput placeholder="Ár...">
+        <span matSuffix>Ft</span>
+      </mat-form-field>
+    </mat-dialog-content>
+  </div>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Vissza</button>
+    <button type="submit" mat-raised-button color="primary" [mat-dialog-close]="true">Hozzáadás</button>
+  </mat-dialog-actions>
+</form>

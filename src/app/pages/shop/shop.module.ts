@@ -5,6 +5,10 @@ import { ShopComponent } from './shop.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { AddItemDialogModule } from './add-item-dialog/add-item-dialog.module';
 
 
 
@@ -17,7 +21,11 @@ import { MatSortModule } from '@angular/material/sort';
     ShopRoutingModule,
     MatCardModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatDialogModule,
+    MatIconModule,
+    MatButtonModule,
+    AddItemDialogModule
   ]
 })
 export class ShopModule { }

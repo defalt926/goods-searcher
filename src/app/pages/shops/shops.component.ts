@@ -33,14 +33,12 @@ export class ShopsComponent {
     this.authService = authService;
   }
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+  ngOnInit() {
+    this.dataSource = new MatTableDataSource(CONST.shops);
   }
 
-  ngOnInit() {
-    var currentShopId = this.route.snapshot.paramMap.get('shop_id');
-    this.shop = this.shopService.getShopById(currentShopId);
-    this.dataSource = new MatTableDataSource(CONST.shops);
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   announceSortChange(sortState: Sort) {
@@ -59,7 +57,9 @@ export class ShopsComponent {
     const dialogRef = this.dialog.open(AddShopDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dataSource = new MatTableDataSource(CONST.shops);
+      if (result === 'VALID') {
+        this.dataSource = new MatTableDataSource(CONST.shops);
+      }
     });
   }
 }

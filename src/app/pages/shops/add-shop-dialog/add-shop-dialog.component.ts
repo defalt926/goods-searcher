@@ -1,5 +1,6 @@
 import { Component, } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { CONST } from 'src/app/shared/constants';
 import { Shop } from 'src/app/shared/models/shop.model';
 
@@ -11,7 +12,8 @@ import { Shop } from 'src/app/shared/models/shop.model';
 export class AddShopDialogComponent {
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private dialogRef: MatDialogRef<AddShopDialogComponent>) {
     this.form = this.fb.group({
       name: ['Lidl', Validators.required],
       city: ['Esztergom', Validators.required],
@@ -23,7 +25,6 @@ export class AddShopDialogComponent {
     let form = this.form
 
     if (form.valid) {
-      console.log('hey2', CONST.shops)
       if (CONST.shops.every(shop => shop.name !== form.value['name']
           && shop.city !== form.value['city']
           && shop.street !== form.value['street'])) {
@@ -34,6 +35,7 @@ export class AddShopDialogComponent {
           city: form.value['city'],
           street: form.value['street']} as Shop
         )
+        this.dialogRef.close('VALID')
       }
     }
   }
