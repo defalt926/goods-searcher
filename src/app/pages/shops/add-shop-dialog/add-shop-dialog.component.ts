@@ -1,6 +1,7 @@
 import { Component, } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CONST } from 'src/app/shared/constants';
 import { Shop } from 'src/app/shared/models/shop.model';
 
@@ -13,7 +14,8 @@ export class AddShopDialogComponent {
   form: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private dialogRef: MatDialogRef<AddShopDialogComponent>) {
+              private dialogRef: MatDialogRef<AddShopDialogComponent>,
+              private snackBar: MatSnackBar) {
     this.form = this.fb.group({
       name: ['Lidl', Validators.required],
       city: ['Esztergom', Validators.required],
@@ -36,6 +38,10 @@ export class AddShopDialogComponent {
           street: form.value['street']} as Shop
         )
         this.dialogRef.close('VALID')
+      } else {
+        this.snackBar.open('Létezik már ilyen bolt.', 'OK', {
+          duration: 5000
+        })
       }
     }
   }

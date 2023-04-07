@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { ShopService } from 'src/app/services/shop.service';
 import { CONST } from 'src/app/shared/constants';
@@ -25,7 +26,8 @@ export class AddItemDialogComponent {
               private route: ActivatedRoute,
               private dialogRef: MatDialogRef<AddItemDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: { currentShopId: string},
-              private shopService: ShopService) {
+              private shopService: ShopService,
+              private snackBar: MatSnackBar) {
     this.form = this.fb.group({
       category: ['', Validators.required],
       subCategory: new FormControl({value: '', disabled: true}, Validators.required),
@@ -41,8 +43,6 @@ export class AddItemDialogComponent {
     let form = this.form;
 
     if (form.valid) {
-      
-
       if (!this.shopService.isItemExistInShop(this.data.currentShopId, form.value['name'])) {
         var itemId: string | undefined = (CONST.items.length + 1).toString();
         if (!this.shopService.isItemExistInItems(form.value['name'])) {
@@ -64,6 +64,10 @@ export class AddItemDialogComponent {
           price: form.value['price']
         } as Price);
         this.dialogRef.close('VALID')
+      } else {
+        this.snackBar.open('Létezik már ilyen termék.', 'OK', {
+          duration: 5000
+        });
       }
     }
   }

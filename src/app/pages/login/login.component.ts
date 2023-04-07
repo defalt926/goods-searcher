@@ -27,12 +27,12 @@ export class LoginComponent {
 
   login() {
     if (!this.form.invalid) {
-      var isLoggedIn = this.authService.login(this.form.value['email'], this.form.value['password'])
+      var isLoggedIn = this.authService.login(this.form.value['email'], this.form.value['password']);
 
       if (!isLoggedIn) {
-        this.snackBar.open('Email or password you entered is incorrect.', 'OK', {
+        this.snackBar.open('Az email vagy jelszó nem egyezik meg.', 'OK', {
           duration: 5000
-        })
+        });
       }
     }
   }
