@@ -37,11 +37,11 @@ export class AddShopDialogComponent {
           city: form.value['city'],
           street: form.value['street']} as Shop
         )
-        this.dialogRef.close('VALID')
+        this.dialogRef.close('VALID');
       } else {
         this.snackBar.open('Létezik már ilyen bolt.', 'OK', {
           duration: 5000
-        })
+        });
       }
     }
   }
