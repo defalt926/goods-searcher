@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -24,6 +25,7 @@ import { FormsModule } from '@angular/forms';
     MatCardModule,
     MatButtonModule,
     FormsModule,
+    MatSelectModule
   ]
 })
 export class HomeModule { 

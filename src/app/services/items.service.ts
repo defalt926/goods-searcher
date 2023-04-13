@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CONST } from '../shared/constants';
 import { Item } from '../shared/models/item.model';
 import { Price } from '../shared/models/price.model';
+import { Shop } from '../shared/models/shop.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,25 @@ export class ItemsService {
     return CONST.items.filter(subCategory => subCategory.subcat_id == subcat_id);
   }
 
-  getItemsByName(name: string | null): Item[] {
-    if(name != null) {
-      return CONST.items.filter(item => item.name.toLocaleLowerCase().includes(name.toLocaleLowerCase()));
+  getItemsByName(name: string | null, city: string | null): Item[] {
+    if (name != null && name != "") {
+      if (city != "") {
+        var shopsInCity = CONST.shops.filter(shop => shop.city == city);
+        var itemsInShops = CONST.prices.filter(price => shopsInCity.some(shop => shop.id == price.shop_id));
+        var itemsInCity = CONST.items.filter(item => itemsInShops.some(item2 => item2.item_id == item.id));
+        return itemsInCity.filter(item => item.name.toLocaleLowerCase().includes(name.toLocaleLowerCase()));
+      } else {
+        return CONST.items.filter(item => item.name.toLocaleLowerCase().includes(name.toLocaleLowerCase()));
+      }
     } else {
-      return [];
+      if (city != "") {
+        var shopsInCity = CONST.shops.filter(shop => shop.city == city);
+        var itemsInShops = CONST.prices.filter(price => shopsInCity.some(shop => shop.id == price.shop_id));
+        return CONST.items.filter(item => itemsInShops.some(item2 => item2.item_id == item.id));
+      } else {
+        return CONST.items
+      }
     }
-    
   }
 
   getLowestPriceByItem(item_id: string): number {
@@ -48,5 +61,9 @@ export class ItemsService {
 
   getRatingByItemId(item_id: string): number {
     return CONST.items.filter(item => item.id == item_id)[0].rating;
+  }
+
+  getCities() {
+    return new Set(CONST.shops.map(shop => shop.city))
   }
 }

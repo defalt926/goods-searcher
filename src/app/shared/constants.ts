@@ -28,6 +28,7 @@ export const CONST = {
         {id: "3", cat_id: "1", subcat_id: "2", name: "Ásványvíz", description: "", rating: 0} as Item,
         {id: "4", cat_id: "1", subcat_id: "2", name: "Desztillált víz", description: "", rating: 0} as Item,
         {id: "5", cat_id: "1", subcat_id: "1", name: "Csokis Fánk", description: "csokis fánk 1db", rating: 0} as Item,
+        {id: "6", cat_id: "1", subcat_id: "1", name: "Vaníliás Fánk", description: "vaníliás fánk 1db", rating: 0} as Item,
     ],
     shops: [
         {id: "1", name: "Spar", city: "Szeged", street: "Csanádi utca 7"} as Shop,
@@ -45,6 +46,7 @@ export const CONST = {
         {shop_id: "2", item_id: "4", price: 140} as Price,
         {shop_id: "1", item_id: "5", price: 250} as Price,
         {shop_id: "3", item_id: "1", price: 200} as Price,
+        {shop_id: "3", item_id: "6", price: 200} as Price,
     ],
     users: [
         {id: '0', first_name: 'Tamás', last_name: 'Kiss', email: 'kisst186@gmail.com', password: 'Test1234', is_suspended: false} as User,

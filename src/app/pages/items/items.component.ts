@@ -20,7 +20,8 @@ export class ItemsComponent {
 
   ngOnInit() {
     if(this.route.snapshot.paramMap.get('id') == "0") {
-      this.items = this.service.getItemsByName(this.route.snapshot.paramMap.get('name'));
+      this.items = this.service.getItemsByName(this.route.snapshot.paramMap.get('name'),
+                                          this.route.snapshot.queryParamMap.get('city'));
     } else {
       this.items = this.service.getItemsById(this.route.snapshot.paramMap.get('id'));
     }
