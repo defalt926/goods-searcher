@@ -1,13 +1,10 @@
 <div id="search-bar">
     <mat-form-field>
         <mat-label color="blue">Keresés</mat-label>
-        <input type="search" matInput placeholder="Termék keresése...">
-        <!--<mat-icon matSuffix>search</mat-icon>-->
-        <div id="button-div" matSuffix>
-            <button mat-icon-button [routerLink]="['/items', 0, searchInput]">
-                <mat-icon aria-label="Search icon">search</mat-icon>
-            </button>
-        </div>
+        <input type="search" [(ngModel)]="searchInput" matInput placeholder="Termék keresése...">
+        <button mat-icon-button matSuffix [routerLink]="['/items', 0, searchInput]" [queryParams]="{city: ''}">
+            <mat-icon aria-label="Search icon">search</mat-icon>
+        </button>
     </mat-form-field>
 </div>
 <div id="subCategories">

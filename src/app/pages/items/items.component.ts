@@ -10,6 +10,7 @@ import { Item } from 'src/app/shared/models/item.model';
 })
 export class ItemsComponent {
   items: Item[] = [];
+  filteredItems: Item[] = [];
   searchInput = "";
 
   constructor(
@@ -24,6 +25,17 @@ export class ItemsComponent {
                                           this.route.snapshot.queryParamMap.get('city'));
     } else {
       this.items = this.service.getItemsById(this.route.snapshot.paramMap.get('id'));
+    }
+    this.filteredItems = this.items;
+  }
+
+  searchItems() {
+    if (this.searchInput != "") {
+      this.filteredItems = this.filteredItems.filter(
+        item => item.name.toLocaleLowerCase().includes(this.searchInput.toLocaleLowerCase())
+      );
+    } else {
+      this.filteredItems = this.items;
     }
   }
 

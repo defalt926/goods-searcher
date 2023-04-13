@@ -1,10 +1,9 @@
 <div id="search-bar">
     <mat-form-field>
         <mat-label color="blue">Keresés</mat-label>
-        <input type="search" matInput placeholder="Termék keresése...">
-        <!--<mat-icon matSuffix>search</mat-icon>-->
+        <input type="search" [(ngModel)]="searchInput" matInput placeholder="Termék keresése...">
         <div id="button-div" matSuffix>
-            <button mat-icon-button>
+            <button mat-icon-button (click)="searchItems()">
                 <mat-icon aria-label="Search icon">search</mat-icon>
             </button>
         </div>
@@ -12,7 +11,7 @@
 </div>
 <div id="items">
     <div id="container">
-        <div class="item" *ngFor="let item of items">
+        <div class="item" *ngFor="let item of filteredItems">
             <a mat-button [routerLink]="['/item', item.id]" style="width: 100%; height: 200px; margin: 20px; box-shadow: 0px 3px 20px rgb(141, 141, 141); display: flex; justify-content: center;">
                 <div>{{item.name}}</div>
                 <div>{{getPrice(item.id)}} Ft</div>
