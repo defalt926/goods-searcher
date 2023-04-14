@@ -14,6 +14,7 @@ export class HomeComponent {
   searchInput = "";
   searchCity = "";
   cities = new Set;
+  selected = "";
 
   constructor(itemsService: ItemsService) {
     this.cities = itemsService.getCities();

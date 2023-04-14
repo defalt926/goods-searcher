@@ -40,11 +40,11 @@ export class LoginComponent {
   setVisibility(isVisible: boolean) {
     if (isVisible) {
       this.renderer.setAttribute(this.pswRef.nativeElement, 'type', 'text')
-      this.renderer.setProperty(this.textRef.nativeElement, 'innerHTML', 'Hide')
+      this.renderer.setProperty(this.textRef.nativeElement, 'innerHTML', 'Elrejt')
       this.renderer.setProperty(this.iconRef.nativeElement, 'innerHTML', 'visibility_off')
     } else {
       this.renderer.setAttribute(this.pswRef.nativeElement, 'type', 'password')
-      this.renderer.setProperty(this.textRef.nativeElement, 'innerHTML', 'Show')
+      this.renderer.setProperty(this.textRef.nativeElement, 'innerHTML', 'Mutat')
       this.renderer.setProperty(this.iconRef.nativeElement, 'innerHTML', 'visibility')
     } 
   }
