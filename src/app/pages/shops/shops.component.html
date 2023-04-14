@@ -1,5 +1,14 @@
 <div class="container">
   <h1>Boltok</h1>
+  <mat-form-field>
+    <mat-label color="blue">Keresés</mat-label>
+    <input type="search" [(ngModel)]="searchInput" matInput placeholder="Termék keresése...">
+    <div id="button-div" matSuffix>
+        <button mat-icon-button (click)="searchShops()">
+            <mat-icon aria-label="Search icon">search</mat-icon>
+        </button>
+    </div>
+  </mat-form-field>
   <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
       class="mat-elevation-z8">
     <ng-container matColumnDef="id">

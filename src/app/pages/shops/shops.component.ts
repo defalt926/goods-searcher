@@ -21,6 +21,7 @@ export class ShopsComponent {
   displayedColumns: string[] = ['id', 'name', 'city', 'street'];
   dataSource = new MatTableDataSource([] as Shop[]);
   @ViewChild(MatSort) sort!: MatSort;
+  searchInput = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -61,5 +62,16 @@ export class ShopsComponent {
         this.dataSource = new MatTableDataSource(CONST.shops);
       }
     });
+  }
+
+  searchShops() {
+    if (this.searchInput != "") {
+      this.dataSource = new MatTableDataSource(CONST.shops.filter(
+        row => row.city.toLocaleLowerCase().includes(this.searchInput.toLocaleLowerCase())
+          || row.name.toLocaleLowerCase().includes(this.searchInput.toLocaleLowerCase())
+      ))
+    } else {
+      this.dataSource = new MatTableDataSource(CONST.shops);
+    }
   }
 }
