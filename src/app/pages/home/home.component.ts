@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
 import { ItemsService } from 'src/app/services/items.service';
-import { CONST } from 'src/app/shared/constants';
 import { Category } from 'src/app/shared/models/category.model';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-home',
@@ -10,13 +10,17 @@ import { Category } from 'src/app/shared/models/category.model';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  categories: Category[] = CONST.categories;
+  categories: Category[];
   searchInput = "";
   searchCity = "";
   cities = new Set;
   selected = "";
 
-  constructor(itemsService: ItemsService) {
+  constructor(itemsService: ItemsService,
+              private firestore: AngularFirestore) {
+    this.categories = [];
+    firestore.collection("categories").valueChanges().subscribe(docs => {let variable = docs as Category[]; this.categories = variable.sort((a: Category, b: Category) => a.name.localeCompare(b.name))});
+
     this.cities = itemsService.getCities();
   }
 
