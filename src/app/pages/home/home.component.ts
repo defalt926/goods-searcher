@@ -19,8 +19,12 @@ export class HomeComponent {
   constructor(itemsService: ItemsService,
               private firestore: AngularFirestore) {
     this.categories = [];
-    firestore.collection("categories").valueChanges().subscribe(docs => {let variable = docs as Category[]; this.categories = variable.sort((a: Category, b: Category) => a.name.localeCompare(b.name))});
-
+    this.firestore.collection("categories").valueChanges().subscribe(
+      docs => {
+        let categories = docs as Category[];
+        this.categories = categories.sort((a: Category, b: Category) => a.name.localeCompare(b.name))
+      }
+    );
     this.cities = itemsService.getCities();
   }
 

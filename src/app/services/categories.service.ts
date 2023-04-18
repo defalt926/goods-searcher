@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { CONST } from '../shared/constants';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriesService {
 
-  constructor() { }
+  constructor(private firestore: AngularFirestore) { }
 
-  getSubCategories(id: string | null) {
-    return CONST.subCategories.filter(category => category.cat_id == id);
+  getSubCategories() {
+    return this.firestore.collection("subCategories").valueChanges();
   }
 }

@@ -19,6 +19,13 @@ export class CategoriesComponent {
   ) {}
 
   ngOnInit() {
-    this.subCategories = this.service.getSubCategories(this.route.snapshot.paramMap.get('id'));
+    let id = this.route.snapshot.paramMap.get('id');
+    this.service.getSubCategories().subscribe(docs => {
+      let subCategories = docs as SubCategory[];
+      
+      this.subCategories = subCategories
+        .filter(subCategory => subCategory.cat_id == id)
+        .sort((a: SubCategory, b: SubCategory) => a.name.localeCompare(b.name));
+    });;
   }
 }
