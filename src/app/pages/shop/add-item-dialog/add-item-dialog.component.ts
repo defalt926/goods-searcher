@@ -20,7 +20,7 @@ export class AddItemDialogComponent {
   form: FormGroup;
   categories: Category[];
   subCategories: SubCategory[];
-  ;
+  filteredSubCategories: SubCategory[];
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
@@ -35,8 +35,21 @@ export class AddItemDialogComponent {
       description: ['', Validators.required],
       price: [0, Validators.required],
     });
-    this.categories = CONST.categories;
-    this.subCategories = CONST.subCategories;
+    this.categories = [];
+    this.shopService.getCategories().subscribe(
+      docs => {
+        let categories = docs as Category[];
+        this.categories = categories
+          .sort((a: Category, b: Category) => a.name.localeCompare(b.name))
+      }
+    );
+    this.subCategories = [];
+    this.shopService.getSubCategories().subscribe(docs => {
+      let subCategories = docs as SubCategory[];
+      this.subCategories = subCategories
+        .sort((a: SubCategory, b: SubCategory) => a.name.localeCompare(b.name));
+    });
+    this.filteredSubCategories = [];
   }
 
   addItem() {
@@ -74,6 +87,6 @@ export class AddItemDialogComponent {
 
   selectCategory(category: MatSelectChange) {
     this.form.controls['subCategory'].enable();
-    this.subCategories = CONST.subCategories.filter(subCategory => subCategory.cat_id == category.value);
+    this.filteredSubCategories = this.subCategories.filter(subCategory => subCategory.cat_id == category.value);
   }
 }

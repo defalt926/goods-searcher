@@ -13,7 +13,7 @@
       <mat-form-field>
         <mat-label>Alkategória</mat-label>
         <mat-select formControlName="subCategory">
-          <mat-option *ngFor="let subCategory of subCategories" [value]="subCategory.subcat_id">
+          <mat-option *ngFor="let subCategory of filteredSubCategories" [value]="subCategory.subcat_id">
             {{subCategory.name}}
           </mat-option>
         </mat-select>

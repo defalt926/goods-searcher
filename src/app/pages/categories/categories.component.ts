@@ -14,7 +14,6 @@ export class CategoriesComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private service: CategoriesService
   ) {}
 
@@ -26,6 +25,6 @@ export class CategoriesComponent {
       this.subCategories = subCategories
         .filter(subCategory => subCategory.cat_id == id)
         .sort((a: SubCategory, b: SubCategory) => a.name.localeCompare(b.name));
-    });;
+    });
   }
 }

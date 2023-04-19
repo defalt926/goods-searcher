@@ -1,13 +1,22 @@
 import { Injectable } from '@angular/core';
 import { CONST } from '../shared/constants';
 import { Shop } from '../shared/models/shop.model';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
 
-  constructor() { }
+  constructor(private firestore: AngularFirestore) { }
+
+  getCategories() {
+    return this.firestore.collection("categories").valueChanges();
+  }
+
+  getSubCategories() {
+    return this.firestore.collection("subCategories").valueChanges();
+  }
 
   getShopById(shop_id: string | null): Shop {
     return CONST.shops.filter(shop => shop.id == shop_id)[0];
