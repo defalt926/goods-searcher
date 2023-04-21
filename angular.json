@@ -99,6 +99,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "goods-searcher:build:production",
+            "firebaseProject": "goods-searcher",
+            "firebaseHostingSite": "goods-searcher"
+          }
         }
       }
     }

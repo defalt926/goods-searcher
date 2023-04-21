@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "goods-searcher"
+  },
+  "targets": {
+    "goods-searcher": {
+      "hosting": {
+        "goods-searcher": [
+          "goods-searcher"
+        ]
+      }
+    }
   }
 }
