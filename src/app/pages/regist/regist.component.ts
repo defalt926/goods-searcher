@@ -29,7 +29,7 @@ export class RegistComponent {
     }, {validators: this.checkPasswords});
     this.users = [];
   }
-  
+
   regist() {
     let form = this.form
 

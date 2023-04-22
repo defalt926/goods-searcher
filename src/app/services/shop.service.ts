@@ -18,6 +18,20 @@ export class ShopService {
     return this.firestore.collection("subCategories").valueChanges();
   }
 
+  getShops() {
+    return this.firestore.collection("shops").valueChanges();
+  }
+
+  addShop(shop: Shop) {
+    const newId = this.firestore.createId();
+    return this.firestore.collection("shops").doc(newId).set({
+      id: newId,
+      name: shop.name,
+      city: shop.city,
+      street: shop.street,
+    });
+  }
+
   getShopById(shop_id: string | null): Shop {
     return CONST.shops.filter(shop => shop.id == shop_id)[0];
   }

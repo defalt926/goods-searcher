@@ -8,11 +8,14 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'goods-searcher';
+  isAuthenticated: boolean;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+    this.isAuthenticated = false;
+   }
 
-  isAuthenticated() {
-    return this.authService.getAuthStatus();
+  ngDoCheck() {
+    this.isAuthenticated = this.authService.getAuthStatus();
   }
 
   logout() {

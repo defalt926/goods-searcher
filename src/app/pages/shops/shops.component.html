@@ -9,7 +9,7 @@
         </button>
     </div>
   </mat-form-field>
-  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+  <table mat-table [dataSource]="shops" matSort (matSortChange)="announceSortChange($event)"
       class="mat-elevation-z8">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
@@ -46,6 +46,6 @@
       *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-<button class="add-shop-button" (click)="openDialog()" *ngIf="authService.getAuthStatus()" color="warn" mat-fab aria-label="Add shop">
+<button class="add-shop-button" (click)="openDialog()" *ngIf="getAuthStatus()" color="warn" mat-fab aria-label="Add shop">
   <mat-icon>add</mat-icon>
 </button>

@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShopService } from 'src/app/services/shop.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { CONST } from 'src/app/shared/constants';
 import { Shop } from 'src/app/shared/models/shop.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
@@ -16,30 +15,37 @@ import { AddShopDialogComponent } from './add-shop-dialog/add-shop-dialog.compon
   styleUrls: ['./shops.component.css']
 })
 export class ShopsComponent {
-  authService: AuthService = {} as AuthService;
-  shop: Shop = {} as Shop;
   displayedColumns: string[] = ['id', 'name', 'city', 'street'];
-  dataSource = new MatTableDataSource([] as Shop[]);
+  shops = new MatTableDataSource([] as Shop[]);
   @ViewChild(MatSort) sort!: MatSort;
   searchInput = "";
 
   constructor(
     private route: ActivatedRoute,
     private shopService: ShopService,
-    authService: AuthService,
+    private authService: AuthService,
     private _liveAnnouncer: LiveAnnouncer,
     private router: Router,
     public dialog: MatDialog
   ) {
-    this.authService = authService;
+    this.setShops();
   }
 
-  ngOnInit() {
-    this.dataSource = new MatTableDataSource(CONST.shops);
+  getAuthStatus() {
+    return this.authService.getAuthStatus();
+  }
+
+  setShops() {
+    this.shopService.getShops().subscribe(
+      docs => {
+        let shops = docs as Shop[];
+        this.shops = new MatTableDataSource(shops);
+      }
+    );
   }
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+    this.shops.sort = this.sort;
   }
 
   announceSortChange(sortState: Sort) {
@@ -59,19 +65,26 @@ export class ShopsComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'VALID') {
-        this.dataSource = new MatTableDataSource(CONST.shops);
+        this.setShops();
       }
     });
   }
 
   searchShops() {
     if (this.searchInput != "") {
-      this.dataSource = new MatTableDataSource(CONST.shops.filter(
-        row => row.city.toLocaleLowerCase().includes(this.searchInput.toLocaleLowerCase())
-          || row.name.toLocaleLowerCase().includes(this.searchInput.toLocaleLowerCase())
-      ))
+      this.shopService.getShops().subscribe(
+        docs => {
+          let shops = docs as Shop[];
+          shops = shops.filter(
+            shop => shop.city.toLocaleLowerCase().includes(this.searchInput.toLocaleLowerCase())
+              || shop.name.toLocaleLowerCase().includes(this.searchInput.toLocaleLowerCase())
+              || shop.street.toLocaleLowerCase().includes(this.searchInput.toLocaleLowerCase())
+          );
+          this.shops = new MatTableDataSource(shops);
+        }
+      );
     } else {
-      this.dataSource = new MatTableDataSource(CONST.shops);
+      this.setShops();
     }
   }
 }

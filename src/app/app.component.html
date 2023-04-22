@@ -12,7 +12,7 @@
         <mat-icon>person_add</mat-icon>
         <div>Regisztráció</div>
     </a>
-    <button *ngIf="isAuthenticated()" mat-button [matMenuTriggerFor]="aboveMenu">
+    <button *ngIf="isAuthenticated" mat-button [matMenuTriggerFor]="aboveMenu">
         <mat-icon>person</mat-icon> 
         <div>Profil</div>
     </button>
@@ -20,7 +20,7 @@
     <a mat-menu-item routerLink="/profile">Profil adatai</a>
     <button mat-menu-item (click)="logout()">Kijelentkezés</button>
     </mat-menu>
-    <a *ngIf="!isAuthenticated()" mat-button routerLink="/login" aria-label="Sign in">
+    <a *ngIf="!isAuthenticated" mat-button routerLink="/login" aria-label="Sign in">
         <mat-icon>person</mat-icon> 
         <div>Bejelentkezés</div>
     </a>
