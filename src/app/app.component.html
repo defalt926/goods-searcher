@@ -12,15 +12,15 @@
         <mat-icon>person_add</mat-icon>
         <div>Regisztráció</div>
     </a>
-    <button *ngIf="authService.getAuthStatus()" mat-button [matMenuTriggerFor]="aboveMenu">
+    <button *ngIf="isAuthenticated()" mat-button [matMenuTriggerFor]="aboveMenu">
         <mat-icon>person</mat-icon> 
         <div>Profil</div>
     </button>
     <mat-menu #aboveMenu="matMenu">
     <a mat-menu-item routerLink="/profile">Profil adatai</a>
-    <button mat-menu-item (click)="authService.logout()">Kijelentkezés</button>
+    <button mat-menu-item (click)="logout()">Kijelentkezés</button>
     </mat-menu>
-    <a *ngIf="!authService.getAuthStatus()" mat-button routerLink="/login" aria-label="Sign in">
+    <a *ngIf="!isAuthenticated()" mat-button routerLink="/login" aria-label="Sign in">
         <mat-icon>person</mat-icon> 
         <div>Bejelentkezés</div>
     </a>

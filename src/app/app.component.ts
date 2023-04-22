@@ -8,9 +8,14 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'goods-searcher';
-  authService: AuthService = {} as AuthService;
 
-  constructor(authService: AuthService) {
-    this.authService = authService;
+  constructor(private authService: AuthService) { }
+
+  isAuthenticated() {
+    return this.authService.getAuthStatus();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

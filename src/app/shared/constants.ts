@@ -49,6 +49,6 @@ export const CONST = {
         {shop_id: "3", item_id: "6", price: 200} as Price,
     ],
     users: [
-        {id: '0', first_name: 'Tamás', last_name: 'Kiss', email: 'kisst186@gmail.com', password: 'Test1234', is_suspended: false} as User,
+        {id: '0', first_name: 'Tamás', auth_uid: 'AVyMavz6HpRBbY9HsSl2Xf1oiMr2', last_name: 'Kiss', email: 'kisst186@gmail.com', password: 'Test1234', is_suspended: false} as User,
     ]
 }

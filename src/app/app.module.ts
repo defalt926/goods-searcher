@@ -11,6 +11,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { environment } from "src/environments/environment";
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth,getAuth } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
     MatButtonModule,
     MatMenuModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth())
   ],
   bootstrap: [AppComponent]
 })

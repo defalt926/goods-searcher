@@ -1,45 +1,40 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { CONST } from '../shared/constants';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { User } from '../shared/models/user.model';
+import { Observable } from 'rxjs';
+import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-    constructor(private router: Router) {
-    }
+  constructor(private router: Router,
+              private firestore: AngularFirestore,
+              private auth: Auth) {
+  }
 
-    login(email: string, password: string) {
-      var user = CONST.users.find(user => user.email === email
-                                && user.password === password
-                                && !user.is_suspended)
-      if (user) {
-        localStorage.setItem('userId', user.id);
-        this.router.navigateByUrl('home');
-        return true;
-      } else {
-        return false;
-      }
-    }
+  login(email: string, password: string) {
+    return signInWithEmailAndPassword(this.auth, email, password);
+  }
 
-    getAuthStatus() {
-      return CONST.users.find(user => user.id == localStorage.getItem('userId')) != null;
-    }
+  getUsers(): Observable<User[]> {
+    return this.firestore.collection<User>("users").valueChanges();
+  }
 
-    logout() {
-      localStorage.removeItem('userId');
-      this.router.navigateByUrl('home');
-    }
+  getAuthStatus() {
+    return this.auth.currentUser ? true : false
+  }
 
-    getUser() {
-      return CONST.users.find(user => user.id == localStorage.getItem('userId'));
-    }
+  logout() {
+    this.auth.signOut();
+  }
 
-    getUserName() {
-      return this.getUser()?.last_name + " " + this.getUser()?.first_name;
-    }
-
-    getUserEmail() {
-      return this.getUser()?.email;
-    }
+  async getCurrentUserUid() {
+    return this.auth.currentUser
+      ? this.auth.currentUser.uid
+      : new Promise<string>((resolve, reject) => {
+        reject();
+      });
+  }
 }

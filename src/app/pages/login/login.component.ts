@@ -1,6 +1,7 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -18,22 +19,28 @@ export class LoginComponent {
   constructor(private fb: FormBuilder, 
               private renderer: Renderer2,
               private authService: AuthService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private router: Router) {
     this.form = this.fb.group({
       email: ['kisst186@gmail.com', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['Test1234', Validators.required]
     });
   }
 
   login() {
     if (!this.form.invalid) {
-      var isLoggedIn = this.authService.login(this.form.value['email'], this.form.value['password']);
-
-      if (!isLoggedIn) {
-        this.snackBar.open('Az email vagy jelszó nem egyezik meg.', 'OK', {
-          duration: 5000
+      this.authService.login(this.form.value['email'], this.form.value['password'])
+        .then((res) => {
+          res.user.getIdToken()
+            .then((res2) => {
+              this.router.navigateByUrl('home');
+            });
+        })
+        .catch((err) => {
+          this.snackBar.open('Az email vagy jelszó nem egyezik meg.', 'OK', {
+            duration: 5000
+          });
         });
-      }
     }
   }
 

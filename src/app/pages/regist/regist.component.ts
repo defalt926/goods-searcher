@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { CONST } from 'src/app/shared/constants';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { RegistService } from 'src/app/services/regist.service';
 import { User } from "src/app/shared/models/user.model"
 
 @Component({
@@ -10,32 +13,50 @@ import { User } from "src/app/shared/models/user.model"
 })
 export class RegistComponent {
   form: FormGroup;
+  users: User[];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private registService: RegistService,
+              private snackBar: MatSnackBar,
+              private router: Router,
+              private auth: Auth) {
     this.form = this.fb.group({
       firstName: ['Tamás', Validators.required],
       lastName: ['Kiss', Validators.required],
-      email: ['asd@asd.asd', [Validators.required, Validators.email]],
-      password: ['asd', Validators.required],
-      password2: ['asd', Validators.required],
+      email: ['kisst186@gmail.com', [Validators.required, Validators.email]],
+      password: ['Test1234', Validators.required],
+      password2: ['Test1234', Validators.required],
     }, {validators: this.checkPasswords});
+    this.users = [];
   }
   
   regist() {
     let form = this.form
 
     if (form.valid) {
-      if (CONST.users.every(user => user.email !== form.value['email'])) {
-        CONST.users.push({
-          id: CONST.users.length.toString(),
-          first_name: form.value['firstName'] ? form.value['firstName'] : '',
-          last_name: form.value['lastName'] ? form.value['lastName'] : '',
-          email: form.value['email'] ? form.value['email'] : '',
-          password: form.value['password'] ? form.value['password'] : '',
-          is_suspended: false} as User)
-      }
+      const user = {
+        auth_uid: '',
+        first_name: form.value['firstName'],
+        last_name: form.value['lastName'],
+        email: form.value['email'],
+      } as User
+
+      this.registService.addUser(form.value['email'], form.value['password'])
+        .then((user_res) => {
+          user.auth_uid = user_res.user.uid;
+          this.registService.addUserToFireStore(user)
+            .catch(() => {
+              this.snackBar.open('Adatbázis nem érhető el', 'OK', {
+                duration: 5000
+              });
+            })
+        })
+        .catch((err) => {
+          this.snackBar.open('Hiba a regisztráció során', 'OK', {
+            duration: 5000
+          });
+        })
     }
-    console.log(CONST.users)
   }
 
   checkPasswords(control: AbstractControl) {
