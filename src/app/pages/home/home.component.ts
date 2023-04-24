@@ -12,26 +12,29 @@ import { Shop } from 'src/app/shared/models/shop.model';
 })
 export class HomeComponent {
   categories: Category[];
-  searchInput = "";
-  searchCity = "";
+  searchInput: string;
+  searchCity: string;
   cities: Set<string>;
-  selected = "";
+  selected: string;
 
   constructor(private itemsService: ItemsService,
               private firestore: AngularFirestore) {
     this.categories = [];
+    this.setCategories();
+    this.searchInput = "";
+    this.searchCity = "";
+    this.cities = new Set
+    this.setCities();
+    this.selected = "";
+  }
+
+  setCategories() {
     this.firestore.collection("categories").valueChanges().subscribe(
       docs => {
         let categories = docs as Category[];
         this.categories = categories.sort((a: Category, b: Category) => a.name.localeCompare(b.name))
       }
     );
-    this.cities = new Set
-    this.setCities();
-  }
-
-  selectCity(city: MatSelectChange) {
-    this.searchCity = city.value;
   }
 
   setCities() {
@@ -42,4 +45,10 @@ export class HomeComponent {
       }
     );
   }
+
+  selectCity(city: MatSelectChange) {
+    this.searchCity = city.value;
+  }
+
+  
 }
