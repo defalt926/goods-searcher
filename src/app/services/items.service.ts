@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { CONST } from '../shared/constants';
 import { Item } from '../shared/models/item.model';
 import { Price } from '../shared/models/price.model';
-import { Shop } from '../shared/models/shop.model';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemsService {
 
-  constructor() { }
+  constructor(private firestore: AngularFirestore) { }
 
   getItemsById(subcat_id: string | null): Item[] {
     return CONST.items.filter(subCategory => subCategory.subcat_id == subcat_id);
@@ -64,6 +64,6 @@ export class ItemsService {
   }
 
   getCities() {
-    return new Set(CONST.shops.map(shop => shop.city))
+    return this.firestore.collection("shops").valueChanges();
   }
 }
