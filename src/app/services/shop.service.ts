@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CONST } from '../shared/constants';
 import { Shop } from '../shared/models/shop.model';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Price } from '../shared/models/price.model';
@@ -69,18 +68,5 @@ export class ShopService {
       item_id: price.item_id,
       price: price.price
     });
-  }
-
-  isItemExistInItems(itemName: string) {
-    return CONST.items.some(item => item.name == itemName);
-  }
-
-  isItemExistInShop(shopId: string, itemName: string) {
-    return CONST.prices.some(price => price.shop_id == shopId
-      && price.item_id == this.getItemIdByItemName(itemName));
-  }
-
-  getItemIdByItemName(itemName: string) {
-    return CONST.items.find(item => item.name == itemName)?.id;
   }
 }

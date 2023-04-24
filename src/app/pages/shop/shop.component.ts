@@ -125,13 +125,7 @@ export class ShopComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'VALID') {
-        this.setPrices()
-        /*var currentShopId = this.route.snapshot.paramMap.get('shop_id');
-        var itemIdsByShop = CONST.prices
-          .filter(price => price.shop_id == currentShopId)
-          .map(price => price.item_id);
-        this.shop = this.shopService.getShopById(currentShopId);
-        this.dataSource = new MatTableDataSource(CONST.items.filter(item => itemIdsByShop.includes(item.id) == true));*/
+        this.setPrices();
       }
     });
   }
