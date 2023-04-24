@@ -47,9 +47,7 @@ export class ShopComponent {
   setItems() {
     this.shopService.getItems().subscribe(
       docs => {
-        let items = docs as Item[];
-        console.log('items',items)
-        this.items = items;
+        this.items = docs as Item[];
         this.setPrices();  
       }
     );
@@ -58,8 +56,7 @@ export class ShopComponent {
   setPrices() {
     this.shopService.getPrices().subscribe(
       docs => {
-        let prices = docs as Price[];
-        this.prices = prices;
+        this.prices = docs as Price[];
         this.initShop();
       }
     );
@@ -111,7 +108,7 @@ export class ShopComponent {
     this.items.map(item => {
       const price = this.prices.find(price => price.item_id == item.id
         && price.shop_id == shopId);
-      console.log('price', price);
+
       price != undefined
         ? item.price = price.price
         : item.price = 0;
