@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShopService } from 'src/app/services/shop.service';
-import { CONST } from 'src/app/shared/constants';
 import { Item } from 'src/app/shared/models/item.model';
 import { Shop } from 'src/app/shared/models/shop.model';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,6 +9,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { AddItemDialogComponent } from './add-item-dialog/add-item-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { Price } from 'src/app/shared/models/price.model';
 
 @Component({
   selector: 'app-shop',
@@ -17,8 +17,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./shop.component.css']
 })
 export class ShopComponent {
-  authService: AuthService = {} as AuthService;
-  shop: Shop = {} as Shop;
+  prices: Price[];
+  shop: Shop;
+  items: Item[];
   displayedColumns: string[] = ['id', 'name', 'price', 'rating'];
   dataSource = new MatTableDataSource([] as Item[]);
   @ViewChild(MatSort) sort!: MatSort;
@@ -27,26 +28,71 @@ export class ShopComponent {
   constructor(
     private route: ActivatedRoute,
     private shopService: ShopService,
-    authService: AuthService,
+    private authService: AuthService,
     private _liveAnnouncer: LiveAnnouncer,
     private router: Router,
     public dialog: MatDialog
   ) {
-    this.authService = authService;
     this.currentShopId = null;
+    this.prices = [] as Price[];
+    this.shop = {} as Shop;
+    this.items = [] as Item[];
+    this.setItems();
+  }
+
+  getAuthStatus() {
+    return this.authService.getAuthStatus();
+  }
+
+  setItems() {
+    this.shopService.getItems().subscribe(
+      docs => {
+        let items = docs as Item[];
+        console.log('items',items)
+        this.items = items;
+        this.setPrices();  
+      }
+    );
+  }
+
+  setPrices() {
+    this.shopService.getPrices().subscribe(
+      docs => {
+        let prices = docs as Price[];
+        this.prices = prices;
+        this.initShop();
+      }
+    );
   }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
 
-  ngOnInit() {
-    this.currentShopId = this.route.snapshot.paramMap.get('shop_id');
-    var itemIdsByShop = CONST.prices
+  initShop() {
+    this.route.snapshot.paramMap.get('shop_id') != null
+      ? this.currentShopId = this.route.snapshot.paramMap.get('shop_id')
+      : this.currentShopId = ""
+    var currentShopId = "";
+    if (this.currentShopId != null) currentShopId = this.currentShopId
+
+    var itemIdsByShop = this.prices
       .filter(price => price.shop_id == this.currentShopId)
       .map(price => price.item_id);
-    this.shop = this.shopService.getShopById(this.currentShopId);
-    this.dataSource = new MatTableDataSource(CONST.items.filter(item => itemIdsByShop.includes(item.id) == true));
+    this.setItemsInShop(itemIdsByShop);
+    this.shopService.getShopById(currentShopId).subscribe(
+      doc => {
+        let shop = doc;
+        if (shop.exists) this.shop = shop.data() as Shop;
+      }
+    );
+    this.setItemsPriceByIds(currentShopId);
+  }
+
+  setItemsInShop(itemIdsByShop: string[]) {
+    this.dataSource = new MatTableDataSource(this.items
+      .filter(item => itemIdsByShop.includes(item.id) == true)
+    );
   }
 
   announceSortChange(sortState: Sort) {
@@ -61,8 +107,15 @@ export class ShopComponent {
     this.router.navigateByUrl('item/' + item_id);
   }
 
-  getItemPriceByIds(shop_id: string, item_id: string) {
-    return this.shopService.getItemPriceByIds(shop_id, item_id);
+  setItemsPriceByIds(shopId: string) {
+    this.items.map(item => {
+      const price = this.prices.find(price => price.item_id == item.id
+        && price.shop_id == shopId);
+      console.log('price', price);
+      price != undefined
+        ? item.price = price.price
+        : item.price = 0;
+    });
   }
 
   openDialog() {
@@ -72,12 +125,13 @@ export class ShopComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'VALID') {
-        var currentShopId = this.route.snapshot.paramMap.get('shop_id');
+        this.setPrices()
+        /*var currentShopId = this.route.snapshot.paramMap.get('shop_id');
         var itemIdsByShop = CONST.prices
           .filter(price => price.shop_id == currentShopId)
           .map(price => price.item_id);
         this.shop = this.shopService.getShopById(currentShopId);
-        this.dataSource = new MatTableDataSource(CONST.items.filter(item => itemIdsByShop.includes(item.id) == true));
+        this.dataSource = new MatTableDataSource(CONST.items.filter(item => itemIdsByShop.includes(item.id) == true));*/
       }
     });
   }

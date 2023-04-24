@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ShopService } from 'src/app/services/shop.service';
-import { CONST } from 'src/app/shared/constants';
 import { Shop } from 'src/app/shared/models/shop.model';
 
 @Component({
@@ -46,7 +45,6 @@ export class AddShopDialogComponent {
           && shop.street !== form.value['street'])) {
 
         this.shopService.addShop({
-          id: (CONST.shops.length + 1).toString(),
           name: form.value['name'],
           city: form.value['city'],
           street: form.value['street']

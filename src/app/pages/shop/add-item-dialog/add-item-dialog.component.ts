@@ -5,7 +5,6 @@ import { MatSelectChange } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { ShopService } from 'src/app/services/shop.service';
-import { CONST } from 'src/app/shared/constants';
 import { Category } from 'src/app/shared/models/category.model';
 import { Item } from 'src/app/shared/models/item.model';
 import { Price } from 'src/app/shared/models/price.model';
@@ -21,6 +20,8 @@ export class AddItemDialogComponent {
   categories: Category[];
   subCategories: SubCategory[];
   filteredSubCategories: SubCategory[];
+  prices: Price[];
+  items: Item[];
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
@@ -36,6 +37,17 @@ export class AddItemDialogComponent {
       price: [0, Validators.required],
     });
     this.categories = [];
+    this.setCategories();
+    this.subCategories = [];
+    this.setSubCategories();
+    this.filteredSubCategories = [];
+    this.prices = [];
+    this.setPrices();
+    this.items = [];
+    this.setItems();
+  }
+
+  setCategories() {
     this.shopService.getCategories().subscribe(
       docs => {
         let categories = docs as Category[];
@@ -43,35 +55,51 @@ export class AddItemDialogComponent {
           .sort((a: Category, b: Category) => a.name.localeCompare(b.name))
       }
     );
-    this.subCategories = [];
+  }
+
+  setSubCategories() {
     this.shopService.getSubCategories().subscribe(docs => {
       let subCategories = docs as SubCategory[];
       this.subCategories = subCategories
         .sort((a: SubCategory, b: SubCategory) => a.name.localeCompare(b.name));
     });
-    this.filteredSubCategories = [];
+  }
+
+  setPrices() {
+    this.shopService.getPrices().subscribe(docs => {
+      this.prices = docs as Price[];
+    });
+  }
+
+  setItems() {
+    this.shopService.getItems().subscribe(
+      docs => {
+        this.items = docs as Item[];
+      }
+    );
   }
 
   addItem() {
     let form = this.form;
 
     if (form.valid) {
-      if (!this.shopService.isItemExistInShop(this.data.currentShopId, form.value['name'])) {
-        var itemId: string | undefined = (CONST.items.length + 1).toString();
-        if (!this.shopService.isItemExistInItems(form.value['name'])) {
-          CONST.items.push({
+      if (!this.isItemExistInShop(this.data.currentShopId, form.value['name'])) {
+        var itemId: string | undefined = this.shopService.createDocId();
+        if (!this.isItemExistInItems(form.value['name'])) {
+          this.shopService.addItem({
             id: itemId,
             cat_id: form.value['category'],
             subcat_id: form.value['subCategory'],
             name: form.value['name'],
             description: form.value['description'],
+            price: 0,
             rating: 0
-          } as Item)
+          } as Item);
         } else {
-          itemId = this.shopService.getItemIdByItemName(form.value['name']);
+          itemId = this.getItemIdByItemName(form.value['name']);
         }
 
-        CONST.prices.push({
+        this.shopService.addPrice({
           shop_id: this.data.currentShopId,
           item_id: itemId,
           price: form.value['price']
@@ -83,6 +111,19 @@ export class AddItemDialogComponent {
         });
       }
     }
+  }
+
+  isItemExistInShop(shopId: string, itemName: string) {
+    return this.prices.some(price => price.shop_id == shopId
+      && price.item_id == this.getItemIdByItemName(itemName));
+  }
+
+  getItemIdByItemName(itemName: string) {
+    return this.items.find(item => item.name == itemName)?.id;
+  }
+
+  isItemExistInItems(itemName: string) {
+    return this.items.some(item => item.name == itemName);
   }
 
   selectCategory(category: MatSelectChange) {

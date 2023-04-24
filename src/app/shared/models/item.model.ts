@@ -4,5 +4,6 @@ export interface Item {
     subcat_id: string;
     description: string;
     name: string;
+    price: number;
     rating: number;
 }

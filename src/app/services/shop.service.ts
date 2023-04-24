@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { CONST } from '../shared/constants';
 import { Shop } from '../shared/models/shop.model';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Price } from '../shared/models/price.model';
+import { Item } from '../shared/models/item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,12 +34,41 @@ export class ShopService {
     });
   }
 
-  getShopById(shop_id: string | null): Shop {
-    return CONST.shops.filter(shop => shop.id == shop_id)[0];
+  getPrices() {
+    return this.firestore.collection<Price>("prices").valueChanges();
   }
 
-  getItemPriceByIds(shop_id: string, item_id: string): number {
-    return CONST.prices.filter(item => item.shop_id == shop_id && item.item_id == item_id)[0].price;
+  getShopById(shop_id: string){
+    return this.firestore.collection<Shop>('shops').doc(shop_id).get();
+  }
+
+  getItems() {
+    return this.firestore.collection("items").valueChanges();
+  }
+  
+  createDocId() {
+    return this.firestore.createId();
+  }
+
+  addItem(item: Item) {
+    return this.firestore.collection("items").doc(item.id).set({
+      id: item.id,
+      cat_id: item.cat_id,
+      subcat_id: item.subcat_id,
+      name: item.name,
+      description: item.description,
+      price: item.price,
+      rating: item.rating
+    });
+  }
+
+  addPrice(price: Price) {
+    const newId = this.firestore.createId();
+    return this.firestore.collection("prices").doc(newId).set({
+      shop_id: price.shop_id,
+      item_id: price.item_id,
+      price: price.price
+    });
   }
 
   isItemExistInItems(itemName: string) {

@@ -33,7 +33,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
         Ár
       </th>
-      <td mat-cell *matCellDef="let element"> {{getItemPriceByIds(shop.id, element.id)}} Ft</td>
+      <td mat-cell *matCellDef="let element"> {{element.price}} Ft</td>
     </ng-container>
 
     <ng-container matColumnDef="rating">
@@ -50,6 +50,6 @@
       *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-<button class="add-item-button" (click)="openDialog()" *ngIf="authService.getAuthStatus()" color="warn" mat-fab aria-label="Add item">
+<button class="add-item-button" (click)="openDialog()" *ngIf="getAuthStatus()" color="warn" mat-fab aria-label="Add item">
   <mat-icon>add</mat-icon>
 </button>
