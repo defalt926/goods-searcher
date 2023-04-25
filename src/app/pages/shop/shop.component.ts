@@ -20,7 +20,7 @@ export class ShopComponent {
   prices: Price[];
   shop: Shop;
   items: Item[];
-  displayedColumns: string[] = ['id', 'name', 'price', 'rating'];
+  displayedColumns: string[];
   dataSource = new MatTableDataSource([] as Item[]);
   @ViewChild(MatSort) sort!: MatSort;
   currentShopId: string | null;
@@ -37,6 +37,7 @@ export class ShopComponent {
     this.prices = [] as Price[];
     this.shop = {} as Shop;
     this.items = [] as Item[];
+    this.displayedColumns = ['id', 'name', 'price', 'rating'];
     this.setItems();
   }
 
@@ -60,10 +61,6 @@ export class ShopComponent {
         this.initShop();
       }
     );
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
   }
 
   initShop() {
@@ -90,6 +87,7 @@ export class ShopComponent {
     this.dataSource = new MatTableDataSource(this.items
       .filter(item => itemIdsByShop.includes(item.id) == true)
     );
+    this.dataSource.sort = this.sort;
   }
 
   announceSortChange(sortState: Sort) {

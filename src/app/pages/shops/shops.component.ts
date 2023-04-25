@@ -15,19 +15,21 @@ import { AddShopDialogComponent } from './add-shop-dialog/add-shop-dialog.compon
   styleUrls: ['./shops.component.css']
 })
 export class ShopsComponent {
-  displayedColumns: string[] = ['id', 'name', 'city', 'street'];
-  shops = new MatTableDataSource([] as Shop[]);
+  displayedColumns: string[];
+  shops: MatTableDataSource<Shop>;
   @ViewChild(MatSort) sort!: MatSort;
-  searchInput = "";
+  searchInput;
 
   constructor(
-    private route: ActivatedRoute,
     private shopService: ShopService,
     private authService: AuthService,
     private _liveAnnouncer: LiveAnnouncer,
     private router: Router,
     public dialog: MatDialog
   ) {
+    this.displayedColumns = ['id', 'name', 'city', 'street'];
+    this.shops = new MatTableDataSource;
+    this.searchInput = "";
     this.setShops();
   }
 
@@ -39,13 +41,10 @@ export class ShopsComponent {
     this.shopService.getShops().subscribe(
       docs => {
         let shops = docs as Shop[];
-        this.shops = new MatTableDataSource(shops);
+        this.shops = new MatTableDataSource<Shop>(shops);
+        this.shops.sort = this.sort;
       }
     );
-  }
-
-  ngAfterViewInit() {
-    this.shops.sort = this.sort;
   }
 
   announceSortChange(sortState: Sort) {

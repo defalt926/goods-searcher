@@ -18,14 +18,13 @@ export class RegistComponent {
   constructor(private fb: FormBuilder,
               private registService: RegistService,
               private snackBar: MatSnackBar,
-              private router: Router,
-              private auth: Auth) {
+  ) {
     this.form = this.fb.group({
-      firstName: ['Tamás', Validators.required],
-      lastName: ['Kiss', Validators.required],
-      email: ['kisst186@gmail.com', [Validators.required, Validators.email]],
-      password: ['Test1234', Validators.required],
-      password2: ['Test1234', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      password2: ['', Validators.required],
     }, {validators: this.checkPasswords});
     this.users = [];
   }

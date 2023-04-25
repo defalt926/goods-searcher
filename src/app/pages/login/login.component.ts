@@ -22,8 +22,8 @@ export class LoginComponent {
               private snackBar: MatSnackBar,
               private router: Router) {
     this.form = this.fb.group({
-      email: ['kisst186@gmail.com', [Validators.required, Validators.email]],
-      password: ['Test1234', Validators.required]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
     });
   }
 
