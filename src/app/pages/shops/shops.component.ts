@@ -8,6 +8,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { AddShopDialogComponent } from './add-shop-dialog/add-shop-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-shops',
@@ -25,7 +26,8 @@ export class ShopsComponent {
     private authService: AuthService,
     private _liveAnnouncer: LiveAnnouncer,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
     this.displayedColumns = ['id', 'name', 'city', 'street'];
     this.shops = new MatTableDataSource;
@@ -65,6 +67,9 @@ export class ShopsComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'VALID') {
         this.setShops();
+        this.snackBar.open('Bolt hozzáadás sikeres.', 'OK', {
+          duration: 5000
+        });
       }
     });
   }

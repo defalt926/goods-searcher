@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddItemDialogComponent } from './add-item-dialog/add-item-dialog.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { Price } from 'src/app/shared/models/price.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-shop',
@@ -31,7 +32,8 @@ export class ShopComponent {
     private authService: AuthService,
     private _liveAnnouncer: LiveAnnouncer,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
     this.currentShopId = null;
     this.prices = [] as Price[];
@@ -121,6 +123,9 @@ export class ShopComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'VALID') {
         this.setPrices();
+        this.snackBar.open('Termék hozzáadás sikeres.', 'OK', {
+          duration: 5000
+        });
       }
     });
   }
