@@ -19,9 +19,9 @@ export class AddShopDialogComponent {
               private snackBar: MatSnackBar,
               private shopService: ShopService) {
     this.form = this.fb.group({
-      name: ['Lidl', Validators.required],
-      city: ['Esztergom', Validators.required],
-      street: ['Külső Bánomi út 10', Validators.required],
+      name: ['', Validators.required],
+      city: ['', Validators.required],
+      street: ['', Validators.required],
     });
     this.shops = [] as Shop[];
     this.setShops();
@@ -41,8 +41,8 @@ export class AddShopDialogComponent {
 
     if (form.valid) {
       if (this.shops.every(shop => shop.name !== form.value['name']
-          && shop.city !== form.value['city']
-          && shop.street !== form.value['street'])) {
+          || shop.city !== form.value['city']
+          || shop.street !== form.value['street'])) {
 
         this.shopService.addShop({
           name: form.value['name'],
